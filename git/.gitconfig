@@ -1,0 +1,7 @@
+[user]
+	name = efra
+	email = eliassaldarriaga65@outlook.es
+[init]
+	defaultBranch = main
+[core]
+	autocrlf = input

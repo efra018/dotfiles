@@ -1,0 +1,79 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "vim": {
+    "toggle_relative_line_numbers": true
+  },
+  "vim_mode": false,
+  "icon_theme": "Zed (Default)",
+  "project_panel": {
+    "hide_root": false,
+    "auto_fold_dirs": false,
+    "dock": "left",
+  },
+  "buffer_font_family" : "JetBrains Mono",
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "git_panel": {
+    // "file_icons": false,
+    "dock": "left",
+  },
+  "auto_update": false,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+    "anthropic_retention": false,
+  },
+  "buffer_line_height": "standard",
+  "ui_font_size": 15.0,
+  "buffer_font_size": 14.0,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+  // "format_on_save": "on",
+
+  // Activa el entorno virtual
+  "terminal": {
+    "detect_venv": {
+      "on": {
+        "directories": [".venv"],
+        "activate_script": "default",
+      },
+    },
+  },
+
+  // CONFIGURE LANGUAJES
+  "languages": {
+    "C": {
+      "format_on_save" : "on",
+      "tab_size": 4,
+    },
+    "Python": {
+      "language_servers": ["ruff", "ty"],
+      "format_on_save": "on",
+      "formatter": {
+        "language_server": {
+          "name": "ruff",
+        },
+      },
+      "code_actions_on_format": {},
+    },
+  },
+}
