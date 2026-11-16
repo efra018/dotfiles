@@ -1,0 +1,46 @@
+// [
+//   {
+//     "label": "Depurar C ",
+//     "adapter": "CodeLLDB",
+//     "request": "launch",
+//     "program": "$ZED_WORKTREE_ROOT/build/programa",
+//     "build": "Compilar C para Depurar",
+//     "stopOnEntry": false
+//   }
+// ]
+
+// [
+//   {
+//     "label": "Depurar C",
+//     "build": {
+//       "command": "sh",
+//       "args": [
+//         "-c",
+//         "mkdir -p build && gcc -g \"$ZED_FILE\" -o build/programa"
+//       ],
+//       "cwd": "$ZED_WORKTREE_ROOT"
+//     },
+//     "program": "$ZED_WORKTREE_ROOT/build/programa",
+//     "request": "launch",
+//     "adapter": "CodeLLDB",
+//     "stopOnEntry": false
+//   }
+// ]
+[
+  {
+    "label": "Depurar C",
+    "build": {
+      "command": "sh",
+      "args": [
+        "-c",
+        "mkdir -p build && gcc -g \"$ZED_FILE\" -o build/programa"
+      ],
+      "cwd": "$ZED_WORKTREE_ROOT"
+    },
+    "program": "$ZED_WORKTREE_ROOT/build/programa",
+    "request": "launch",
+    "adapter": "CodeLLDB",
+    "console": "integratedTerminal",
+    "stopOnEntry": false
+  }
+]

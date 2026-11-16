@@ -68,7 +68,13 @@
   },
   {
     "label": "Compilar y Ejecutar C",
-    "command": "mkdir -p build && gcc $ZED_FILE -o build/programa && ./build/programa",
+    "command": "mkdir -p build && gcc -g $ZED_FILE -o build/programa && ./build/programa",
     "shell": "system",
   },
+  {
+    "label": "Compilar C para Depurar",
+    "command": "mkdir -p build && gcc -g \"$ZED_FILE\" -o build/programa",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false
+  }
 ]

@@ -7,6 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "tab_size": 8,
+  "hard_tabs": true,
   "vim": {
     "toggle_relative_line_numbers": true
   },
@@ -17,7 +19,7 @@
     "auto_fold_dirs": false,
     "dock": "left",
   },
-  "buffer_font_family" : "JetBrains Mono",
+  "buffer_font_family" : "JetBrainsMono Nerd Font",
   "outline_panel": {
     "dock": "left",
   },
@@ -51,6 +53,7 @@
 
   // Activa el entorno virtual
   "terminal": {
+    "font_family": "JetBrainsMono Nerd Font Mono",
     "detect_venv": {
       "on": {
         "directories": [".venv"],
@@ -63,7 +66,8 @@
   "languages": {
     "C": {
       "format_on_save" : "on",
-      "tab_size": 4,
+      "tab_size": 8,
+      "hard_tabs": true,
     },
     "Python": {
       "language_servers": ["ruff", "ty"],
