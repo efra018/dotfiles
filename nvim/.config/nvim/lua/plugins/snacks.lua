@@ -16,6 +16,8 @@ return {
 			enabled = true,
 			sources = {
 				explorer = {
+					hidden = true, -- Muestra los archivos ocultos por defecto
+					ignored = true, -- (opcional) muestra archivos ignorados por git
 					win = {
 						list = {
 							keys = {
