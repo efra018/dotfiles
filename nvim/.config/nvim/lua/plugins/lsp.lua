@@ -16,7 +16,7 @@ return {
 	},
 	config = function()
 		-- Atajos globales de diagnósticos (<leader>d para ver el error flotante)
-		vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Mostrar diagnóstico flotante" })
+		vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Mostrar diagnóstico flotante" })
 		vim.keymap.set("n", "[d", function()
 			vim.diagnostic.jump({ count = -1, float = true })
 		end, { desc = "Diagnóstico anterior" })

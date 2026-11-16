@@ -36,3 +36,39 @@ keymap.set("v", "<", "<gv", { desc = "Tabular a la izquierda" })
 -- Centrar pantalla al saltar entre resultados de búsqueda
 -- keymap.set("n", "n", "nzzzv", { desc = "Siguiente resultado centrado" })
 -- keymap.set("n", "N", "Nzzzv", { desc = "Resultado anterior centrado" })
+
+-- Compilar y ejecutar archivo C/C++
+
+vim.keymap.set("n", "<leader>r", function()
+	if vim.bo.filetype == "c" or vim.bo.filetype == "cpp" then
+		vim.cmd("write")
+
+		-- Guarda exactamente la ventana de tu código antes de abrir la terminal
+		local code_win = vim.api.nvim_get_current_win()
+
+		local file = vim.fn.shellescape(vim.fn.expand("%"))
+		local cmd = string.format(
+			"mkdir -p build && gcc -g %s -o build/programa && echo '--- SALIDA ---' && ./build/programa; echo '\n--- FIN ---'",
+			file
+		)
+
+		-- Abre el panel inferior de 12 líneas y deja el foco ahí
+		vim.cmd("botright 20new")
+		vim.fn.termopen({ "sh", "-c", cmd })
+
+		-- Función para cerrar la terminal y saltar directo a la ventana de código
+		local close_and_focus_code = function()
+			vim.cmd("close")
+			if vim.api.nvim_win_is_valid(code_win) then
+				vim.api.nvim_set_current_win(code_win)
+			end
+		end
+
+		-- Mapea 'q' y 'Esc' localmente para ejecutar esa función
+		local opts = { buffer = true, silent = true }
+		vim.keymap.set("n", "q", close_and_focus_code, opts)
+		vim.keymap.set("n", "<Esc>", close_and_focus_code, opts)
+	else
+		print("Este atajo solo está configurado para archivos C/C++")
+	end
+end, { desc = "Compilar, ejecutar y volver al código al cerrar" })

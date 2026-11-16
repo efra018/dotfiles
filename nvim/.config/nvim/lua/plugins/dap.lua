@@ -63,19 +63,17 @@ return {
 		dapui.setup()
 		require("nvim-dap-virtual-text").setup()
 
-		-- Abrir y cerrar la interfaz visual automáticamente al depurar
-		dap.listeners.before.attach.dapui_config = function()
+		-- Función auxiliar para cerrar el explorador (Snacks o Neo-tree) antes de abrir DAP
+		local function open_dap_clean()
+			pcall(function()
+				Snacks.explorer.close()
+			end)
+			vim.cmd("silent! Neotree close")
 			dapui.open()
 		end
-		dap.listeners.before.launch.dapui_config = function()
-			dapui.open()
-		end
-		dap.listeners.before.event_terminated.dapui_config = function()
-			dapui.close()
-		end
-		dap.listeners.before.event_exited.dapui_config = function()
-			dapui.close()
-		end
+
+		dap.listeners.before.attach.dapui_config = open_dap_clean
+		dap.listeners.before.launch.dapui_config = open_dap_clean
 
 		-- Iconos visuales para los breakpoints en el margen
 		vim.fn.sign_define("DapBreakpoint", { text = "●", texthl = "DiagnosticError" })
@@ -92,14 +90,25 @@ return {
 		}
 
 		-- Configuración de lanzamiento para C y C++
-
 		local cpp_config = {
 			{
 				name = "Depurar ejecutable (codelldb)",
 				type = "codelldb",
 				request = "launch",
+				-- Guarda y compila tu archivo C automáticamente antes de entregar el binario al depurador
 				program = function()
-					return vim.fn.input("Ruta del ejecutable: ", vim.fn.getcwd() .. "/build/", "file")
+					vim.cmd("write")
+					local file = vim.fn.shellescape(vim.fn.expand("%:p"))
+					local output_bin = vim.fn.getcwd() .. "/build/programa"
+					local cmd = string.format("mkdir -p build && gcc -g %s -o %s", file, vim.fn.shellescape(output_bin))
+					local result = vim.fn.system(cmd)
+
+					if vim.v.shell_error ~= 0 then
+						vim.notify("Error al compilar:\n" .. result, vim.log.levels.ERROR)
+						return dap.ABORT
+					end
+
+					return output_bin
 				end,
 				cwd = "${workspaceFolder}",
 				stopOnEntry = false,
@@ -110,7 +119,6 @@ return {
 				},
 			},
 		}
-
 		dap.configurations.c = cpp_config
 		dap.configurations.cpp = cpp_config
 	end,
